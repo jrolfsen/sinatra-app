@@ -107,3 +107,12 @@ delete '/users/:user_id/tweets/:id' do
   @tweet.destroy  
   redirect to("/users/#{@user.id}")
 end
+
+# heart
+
+post '/hearts' do
+  @user = User.find_by(email: params[:email])
+  @tweet = Tweet.find(params[:tweet_id].to_i)
+  @heart = Heart.create(user: @user, tweet: @tweet)
+  redirect to("/users/#{@user.id}")
+end
