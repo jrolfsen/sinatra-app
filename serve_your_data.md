@@ -33,11 +33,14 @@ In terminal, type in the following command and notice the output.  Follow the li
 
 ```
  $ ruby ./app.rb -p $PORT -o $IP
-
-[2017-07-15 13:18:34] INFO  WEBrick 1.3.1
-[2017-07-15 13:18:34] INFO  ruby 2.3.0 (2015-12-25) [x86_64-linux]
-== Sinatra (v2.0.0) has taken the stage on 8080 for development with backup from WEBrick
-[2017-07-15 13:18:34] INFO  WEBrick::HTTPServer#start: pid=3814 port=8080
+ =>
+ == Sinatra (v2.0.0) has taken the stage on 4567 for development with backup from Puma
+Puma starting in single mode...
+* Version 3.6.2 (ruby 2.3.1-p112), codename: Sleepy Sunday Serenity
+* Min threads: 0, max threads: 16
+* Environment: development
+* Listening on tcp://localhost:4567
+Use Ctrl-C to stop
 ```
 
 Now change the end of your server to `/hello`.
@@ -160,21 +163,6 @@ Type `exit` to exit out of pry.  Quit your server.  Now let's try changing our r
 
 get '/users/:id' do
   id = params[:id]
-  @user = User.find(id)
-  "Hello, #{@user.salutation}"
-end
-```
-
-If you tried this, you probably notice it doesn't work.  Why not?  Well, the secret is in data types.  You might have noticed when we inspected params using pry, that the value of `params[:id]` was `"1"`.  Which is a string.
-
-But the `User.find()` method expects an integer.  We need to convert the `params[:id]` into an integer first.
-
-
-```
-# routes.rb - continued
-
-get '/users/:id' do
-  id = params[:id].to_i
   @user = User.find(id)
   "Hello, #{@user.salutation}"
 end
