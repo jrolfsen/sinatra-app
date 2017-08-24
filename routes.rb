@@ -8,7 +8,7 @@ get '/users' do
 end
 
 get '/users/:id' do
-  id = params[:id].to_i
+  id = params[:id]
   @user = User.find(id)
   erb :"users/show"
 end
